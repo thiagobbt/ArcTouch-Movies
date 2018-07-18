@@ -1,9 +1,11 @@
 package com.arctouch.codechallenge.home;
 
+import android.arch.paging.PagedListAdapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -19,18 +21,37 @@ import com.arctouch.codechallenge.util.MovieImageUrlBuilder;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-import java.util.List;
+public class HomeAdapter extends PagedListAdapter<Movie, HomeAdapter.ViewHolder> {
 
-public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
+    public static final DiffUtil.ItemCallback<Movie> DIFF_CALLBACK = new DiffUtil.ItemCallback<Movie>() {
+        @Override
+        public boolean areItemsTheSame(@NonNull Movie oldMovie, @NonNull Movie newMovie) {
+            return oldMovie.id == newMovie.id;
+        }
 
-    private List<Movie> movies;
+        @Override
+        public boolean areContentsTheSame(@NonNull Movie oldMovie, @NonNull Movie newMovie) {
+            return oldMovie.equals(newMovie);
+        }
+    };
 
-    public HomeAdapter(List<Movie> movies) {
-        this.movies = movies;
+    protected HomeAdapter() {
+        super(DIFF_CALLBACK);
+    }
+
+    @NonNull
+    @Override
+    public HomeAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_item, parent, false);
+        return new HomeAdapter.ViewHolder(view);
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull HomeAdapter.ViewHolder holder, int position) {
+        holder.bind(getItem(position));
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-
         private final MovieImageUrlBuilder movieImageUrlBuilder = new MovieImageUrlBuilder();
 
         private final TextView titleTextView;
@@ -77,22 +98,5 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
                         .into(posterImageView);
             }
         }
-    }
-
-    @NonNull
-    @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_item, parent, false);
-        return new ViewHolder(view);
-    }
-
-    @Override
-    public int getItemCount() {
-        return movies.size();
-    }
-
-    @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.bind(movies.get(position));
     }
 }

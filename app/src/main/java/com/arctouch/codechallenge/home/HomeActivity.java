@@ -1,59 +1,44 @@
 package com.arctouch.codechallenge.home;
 
-import android.content.Intent;
+import android.arch.lifecycle.LiveData;
+import android.arch.paging.LivePagedListBuilder;
+import android.arch.paging.PagedList;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ProgressBar;
 
 import com.arctouch.codechallenge.R;
-import com.arctouch.codechallenge.api.TmdbApi;
-import com.arctouch.codechallenge.base.BaseActivity;
-import com.arctouch.codechallenge.data.Cache;
-import com.arctouch.codechallenge.model.Genre;
 import com.arctouch.codechallenge.model.Movie;
-import com.arctouch.codechallenge.movieDetails.MovieDetailsActivity;
 
-import java.util.ArrayList;
+public class HomeActivity extends AppCompatActivity {
+    LiveData<PagedList<Movie>> movies;
+    private HomeAdapter movieAdapter;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
-import io.reactivex.schedulers.Schedulers;
-
-import static android.support.v4.content.ContextCompat.startActivity;
-
-public class HomeActivity extends BaseActivity {
-
-    private RecyclerView recyclerView;
     private ProgressBar progressBar;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.home_activity);
 
-        this.recyclerView = findViewById(R.id.recyclerView);
+        RecyclerView recyclerView = findViewById(R.id.recyclerView);
         this.progressBar = findViewById(R.id.progressBar);
 
-        api.upcomingMovies(TmdbApi.API_KEY, TmdbApi.DEFAULT_LANGUAGE, 1L, TmdbApi.DEFAULT_REGION)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(response -> {
-                    for (Movie movie : response.results) {
-                        movie.genres = new ArrayList<>();
-                        for (Genre genre : Cache.getGenres()) {
-                            if (movie.genreIds.contains(genre.id)) {
-                                movie.genres.add(genre);
-                            }
-                        }
-                    }
+        // initial page size to fetch can also be configured here too
+        PagedList.Config config = new PagedList.Config.Builder().setPageSize(15).setPrefetchDistance(30).build();
 
-                    recyclerView.setAdapter(new HomeAdapter(response.results));
-                    progressBar.setVisibility(View.GONE);
-                });
-    }
+        MovieDataSourceFactory sourceFactory = new MovieDataSourceFactory();
 
-    public void loadDetails() {
-        startActivity(new Intent(this, MovieDetailsActivity.class));
+        movies = new LivePagedListBuilder(sourceFactory, config).build();
+        movieAdapter = new HomeAdapter();
+        recyclerView.setAdapter(movieAdapter);
+
+        movies.observe(this, items -> {
+            movieAdapter.submitList(items);
+            progressBar.setVisibility(View.GONE);
+        });
     }
 }

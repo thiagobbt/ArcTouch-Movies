@@ -1,8 +1,10 @@
 package com.arctouch.codechallenge.splash;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.app.AppCompatActivity;
 
 import com.arctouch.codechallenge.R;
 import com.arctouch.codechallenge.api.TmdbApi;
@@ -15,6 +17,7 @@ import io.reactivex.schedulers.Schedulers;
 
 public class SplashActivity extends BaseActivity {
 
+    @SuppressLint("CheckResult")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
