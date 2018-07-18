@@ -1,5 +1,8 @@
 package com.arctouch.codechallenge.home;
 
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
@@ -11,6 +14,7 @@ import android.widget.TextView;
 
 import com.arctouch.codechallenge.R;
 import com.arctouch.codechallenge.model.Movie;
+import com.arctouch.codechallenge.movieDetails.MovieDetailsActivity;
 import com.arctouch.codechallenge.util.MovieImageUrlBuilder;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -33,6 +37,7 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
         private final TextView genresTextView;
         private final TextView releaseDateTextView;
         private final ImageView posterImageView;
+        private Movie movie;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -40,12 +45,29 @@ public class HomeAdapter extends RecyclerView.Adapter<HomeAdapter.ViewHolder> {
             genresTextView = itemView.findViewById(R.id.genresTextView);
             releaseDateTextView = itemView.findViewById(R.id.releaseDateTextView);
             posterImageView = itemView.findViewById(R.id.posterImageView);
+
+            itemView.setOnClickListener(v -> {
+                Context context = v.getContext();
+                Intent intent = new Intent(context, MovieDetailsActivity.class);
+
+                Bundle extras = new Bundle();
+                extras.putString("title", movie.title);
+                extras.putString("releaseDate", movie.releaseDate);
+                extras.putString("genres", movie.genres.toString());
+                extras.putString("overview", movie.overview);
+                extras.putString("backdropPath", movie.backdropPath);
+                extras.putString("posterPath", movie.posterPath);
+
+                intent.putExtras(extras);
+                context.startActivity(intent);
+            });
         }
 
         public void bind(Movie movie) {
             titleTextView.setText(movie.title);
             genresTextView.setText(TextUtils.join(", ", movie.genres));
             releaseDateTextView.setText(movie.releaseDate);
+            this.movie = movie;
 
             String posterPath = movie.posterPath;
             if (TextUtils.isEmpty(posterPath) == false) {

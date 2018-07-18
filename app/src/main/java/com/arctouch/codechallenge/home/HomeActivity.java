@@ -1,5 +1,6 @@
 package com.arctouch.codechallenge.home;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -12,11 +13,14 @@ import com.arctouch.codechallenge.base.BaseActivity;
 import com.arctouch.codechallenge.data.Cache;
 import com.arctouch.codechallenge.model.Genre;
 import com.arctouch.codechallenge.model.Movie;
+import com.arctouch.codechallenge.movieDetails.MovieDetailsActivity;
 
 import java.util.ArrayList;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+
+import static android.support.v4.content.ContextCompat.startActivity;
 
 public class HomeActivity extends BaseActivity {
 
@@ -47,5 +51,9 @@ public class HomeActivity extends BaseActivity {
                     recyclerView.setAdapter(new HomeAdapter(response.results));
                     progressBar.setVisibility(View.GONE);
                 });
+    }
+
+    public void loadDetails() {
+        startActivity(new Intent(this, MovieDetailsActivity.class));
     }
 }
