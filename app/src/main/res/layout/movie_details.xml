@@ -17,7 +17,7 @@
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
             android:contentDescription="@string/movie_backdrop_image_description"
-            android:src="@drawable/ic_image_placeholder"
+            app:srcCompat="@drawable/ic_image_placeholder"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -31,7 +31,7 @@
             android:layout_marginTop="15dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/backdropImageView"
-            android:src="@drawable/ic_image_placeholder"
+            app:srcCompat="@drawable/ic_image_placeholder"
             android:contentDescription="@string/movie_poster_image_description" />
 
         <TextView
