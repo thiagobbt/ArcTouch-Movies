@@ -11,6 +11,7 @@ import com.arctouch.codechallenge.api.TmdbApi;
 import com.arctouch.codechallenge.data.Cache;
 import com.arctouch.codechallenge.model.Genre;
 import com.arctouch.codechallenge.model.Movie;
+import com.arctouch.codechallenge.util.ApiHelper;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,15 +24,6 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.moshi.MoshiConverterFactory;
 
 public class MovieDataSource extends PageKeyedDataSource<Long, Movie> {
-
-    protected TmdbApi api = new Retrofit.Builder()
-            .baseUrl(TmdbApi.URL)
-            .client(new OkHttpClient.Builder().build())
-            .addConverterFactory(MoshiConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build()
-            .create(TmdbApi.class);
-
     @SuppressLint("CheckResult")
     @Override
     public void loadBefore(@NonNull LoadParams params, @NonNull LoadCallback callback) {
@@ -39,7 +31,7 @@ public class MovieDataSource extends PageKeyedDataSource<Long, Movie> {
 
         long page = (Long) params.key;
 
-        api.upcomingMovies(TmdbApi.API_KEY, TmdbApi.DEFAULT_LANGUAGE, page)
+        ApiHelper.api.upcomingMovies(TmdbApi.API_KEY, TmdbApi.DEFAULT_LANGUAGE, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
@@ -65,7 +57,7 @@ public class MovieDataSource extends PageKeyedDataSource<Long, Movie> {
         long page = (Long) params.key;
         Log.d("loadAfter", "called, page = " + page);
 
-        api.upcomingMovies(TmdbApi.API_KEY, TmdbApi.DEFAULT_LANGUAGE, page)
+        ApiHelper.api.upcomingMovies(TmdbApi.API_KEY, TmdbApi.DEFAULT_LANGUAGE, page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
@@ -88,7 +80,7 @@ public class MovieDataSource extends PageKeyedDataSource<Long, Movie> {
     @Override
     public void loadInitial(@NonNull LoadInitialParams params, @NonNull LoadInitialCallback callback) {
         Log.d("loadInitial", "called");
-        api.upcomingMovies(TmdbApi.API_KEY, TmdbApi.DEFAULT_LANGUAGE, 1L)
+        ApiHelper.api.upcomingMovies(TmdbApi.API_KEY, TmdbApi.DEFAULT_LANGUAGE, 1L)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(response -> {
