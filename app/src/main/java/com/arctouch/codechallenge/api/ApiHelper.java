@@ -1,7 +1,5 @@
 package com.arctouch.codechallenge.api;
 
-import android.util.Log;
-
 import com.arctouch.codechallenge.data.Cache;
 import com.arctouch.codechallenge.model.Genre;
 import com.arctouch.codechallenge.model.GenreResponse;
@@ -63,6 +61,30 @@ public class ApiHelper {
                         movie.genres.add(genre);
                     }
                 }
+        }
+
+        return movies;
+    }
+
+    public static List<Movie> searchMovies(String query) {
+        List<Movie> movies = Collections.emptyList();
+
+        try {
+            UpcomingMoviesResponse response = api.searchMoviesSynchronous(TmdbApi.API_KEY, query)
+                    .execute()
+                    .body();
+            if (response != null) movies = response.results;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        for (Movie movie : movies) {
+            movie.genres = new ArrayList<>();
+            for (Genre genre : Cache.getGenres()) {
+                if (movie.genreIds.contains(genre.id)) {
+                    movie.genres.add(genre);
+                }
+            }
         }
 
         return movies;

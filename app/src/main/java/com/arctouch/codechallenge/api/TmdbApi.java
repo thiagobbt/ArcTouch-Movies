@@ -49,4 +49,16 @@ interface TmdbApi {
             @Query("api_key") String apiKey,
             @Query("language") String language
     );
+
+    @GET("search/movie")
+    Observable<UpcomingMoviesResponse> searchMovies(
+            @Query("api_key") String apiKey,
+            @Query("query") String query
+    );
+
+    @GET("search/movie")
+    Call<UpcomingMoviesResponse> searchMoviesSynchronous(
+            @Query("api_key") String apiKey,
+            @Query("query") String query
+    );
 }
