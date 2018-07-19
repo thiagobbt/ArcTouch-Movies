@@ -6,6 +6,7 @@ import android.arch.paging.PagedList;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.arctouch.codechallenge.data.MovieDataSourceFactory;
 import com.arctouch.codechallenge.model.Movie;
@@ -30,7 +31,7 @@ public class HomePresenter {
 
     public void onBindRepositoryRowViewAtPosition(Movie movie, MovieRowView holder) {
         holder.setTitle(movie.title);
-        holder.setGenres(movie.genres.toString());
+        holder.setGenres(TextUtils.join(", ", movie.genres));
         holder.setReleaseDate(movie.releaseDate);
         holder.setPoster(movie.posterPath);
 
@@ -41,7 +42,7 @@ public class HomePresenter {
             Bundle extras = new Bundle();
             extras.putString("title", movie.title);
             extras.putString("releaseDate", movie.releaseDate);
-            extras.putString("genres", movie.genres.toString());
+            extras.putString("genres", TextUtils.join(", ", movie.genres));
             extras.putString("overview", movie.overview);
             extras.putString("backdropPath", movie.backdropPath);
             extras.putString("posterPath", movie.posterPath);
