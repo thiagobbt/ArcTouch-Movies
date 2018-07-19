@@ -23,6 +23,12 @@ public interface TmdbApi {
             @Query("language") String language
     );
 
+    @GET("genre/movie/list")
+    Call<GenreResponse> genresSynchronous(
+            @Query("api_key") String apiKey,
+            @Query("language") String language
+    );
+
     @GET("movie/upcoming")
     Observable<UpcomingMoviesResponse> upcomingMovies(
             @Query("api_key") String apiKey,

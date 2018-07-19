@@ -3,12 +3,14 @@ package com.arctouch.codechallenge.data;
 import android.annotation.SuppressLint;
 import android.arch.paging.PageKeyedDataSource;
 import android.arch.paging.PositionalDataSource;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.View;
 
 import com.arctouch.codechallenge.api.TmdbApi;
 import com.arctouch.codechallenge.data.Cache;
+import com.arctouch.codechallenge.home.HomeActivity;
 import com.arctouch.codechallenge.model.Genre;
 import com.arctouch.codechallenge.model.Movie;
 import com.arctouch.codechallenge.model.UpcomingMoviesResponse;
@@ -51,6 +53,8 @@ public class MovieDataSource extends PageKeyedDataSource<Long, Movie> {
     @Override
     public void loadInitial(@NonNull LoadInitialParams params, @NonNull LoadInitialCallback callback) {
         Log.d("loadInitial", "called");
+
+        Cache.setGenres(ApiHelper.getGenres());
 
         callback.onResult(loadPage(1), null, 2L);
     }
