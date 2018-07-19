@@ -1,4 +1,4 @@
-package com.arctouch.codechallenge.home;
+package com.arctouch.codechallenge.data;
 
 import android.arch.paging.DataSource;
 

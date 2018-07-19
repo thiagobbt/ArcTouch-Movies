@@ -1,4 +1,4 @@
-package com.arctouch.codechallenge.home;
+package com.arctouch.codechallenge.data;
 
 import android.annotation.SuppressLint;
 import android.arch.paging.PageKeyedDataSource;
