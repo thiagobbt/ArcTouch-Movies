@@ -11,7 +11,7 @@ import com.arctouch.codechallenge.util.MovieImageUrlBuilder;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 
-public class MovieViewHolder extends RecyclerView.ViewHolder implements MovieRowView {
+public class MovieRowViewHolder extends RecyclerView.ViewHolder implements MovieRowView {
     private final MovieImageUrlBuilder movieImageUrlBuilder = new MovieImageUrlBuilder();
 
     private final TextView titleTextView;
@@ -20,7 +20,7 @@ public class MovieViewHolder extends RecyclerView.ViewHolder implements MovieRow
     private final ImageView posterImageView;
     private final View itemView;
 
-    MovieViewHolder(View itemView) {
+    MovieRowViewHolder(View itemView) {
         super(itemView);
         this.titleTextView = itemView.findViewById(R.id.titleTextView);
         this.genresTextView = itemView.findViewById(R.id.genresTextView);

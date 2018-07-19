@@ -28,7 +28,7 @@ public class HomePresenter {
         });
     }
 
-    public void onBindRepositoryRowViewAtPosition(Movie movie, MovieViewHolder holder) {
+    public void onBindRepositoryRowViewAtPosition(Movie movie, MovieRowViewHolder holder) {
         holder.setTitle(movie.title);
         holder.setGenres(movie.genres.toString());
         holder.setReleaseDate(movie.releaseDate);

@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import com.arctouch.codechallenge.R;
 import com.arctouch.codechallenge.model.Movie;
 
-public class HomeAdapter extends PagedListAdapter<Movie, MovieViewHolder> {
+public class HomeAdapter extends PagedListAdapter<Movie, MovieRowViewHolder> {
 
     private final HomePresenter presenter;
 
@@ -33,15 +33,15 @@ public class HomeAdapter extends PagedListAdapter<Movie, MovieViewHolder> {
 
     @NonNull
     @Override
-    public MovieViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MovieRowViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater
                     .from(parent.getContext())
                     .inflate(R.layout.movie_item, parent, false);
-        return new MovieViewHolder(view);
+        return new MovieRowViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MovieViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MovieRowViewHolder holder, int position) {
         presenter.onBindRepositoryRowViewAtPosition(getItem(position), holder);
     }
 }
