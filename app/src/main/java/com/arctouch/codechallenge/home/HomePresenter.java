@@ -12,7 +12,7 @@ import com.arctouch.codechallenge.model.Movie;
 import com.arctouch.codechallenge.movieDetails.MovieDetailsActivity;
 
 public class HomePresenter {
-    private HomeAdapter movieAdapter;
+    private final HomeAdapter movieAdapter;
 
     HomePresenter(HomeView homeView) {
         PagedList.Config config = new PagedList.Config.Builder().setPageSize(15).setPrefetchDistance(30).build();
@@ -28,7 +28,7 @@ public class HomePresenter {
         });
     }
 
-    public void onBindRepositoryRowViewAtPosition(Movie movie, MovieRowViewHolder holder) {
+    public void onBindRepositoryRowViewAtPosition(Movie movie, MovieRowView holder) {
         holder.setTitle(movie.title);
         holder.setGenres(movie.genres.toString());
         holder.setReleaseDate(movie.releaseDate);
