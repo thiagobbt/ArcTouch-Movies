@@ -1,12 +1,10 @@
 package com.arctouch.codechallenge.movieDetails;
 
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
@@ -15,11 +13,7 @@ import android.widget.TextView;
 import com.arctouch.codechallenge.R;
 import com.arctouch.codechallenge.util.MovieImageUrlBuilder;
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.load.DataSource;
-import com.bumptech.glide.load.engine.GlideException;
-import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.RequestOptions;
-import com.bumptech.glide.request.target.Target;
 
 public class MovieDetailsActivity extends AppCompatActivity implements MovieDetailsView {
     private TextView titleTextView;

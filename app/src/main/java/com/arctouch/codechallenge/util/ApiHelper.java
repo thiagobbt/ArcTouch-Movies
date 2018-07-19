@@ -10,7 +10,6 @@ import java.io.IOException;
 import java.util.Collections;
 import java.util.List;
 
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
