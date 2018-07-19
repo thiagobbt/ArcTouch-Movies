@@ -10,7 +10,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
-public interface TmdbApi {
+interface TmdbApi {
 
     String URL = "https://api.themoviedb.org/3/";
     String API_KEY = "1f54bd990f1cdfb230adb312546d765d";
