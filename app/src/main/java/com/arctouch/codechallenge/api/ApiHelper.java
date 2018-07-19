@@ -31,6 +31,7 @@ public class ApiHelper {
 
     public static List<Genre> getGenres() {
         List<Genre> genres = Collections.emptyList();
+
         try {
             GenreResponse response = api.genresSynchronous(TmdbApi.API_KEY, TmdbApi.DEFAULT_LANGUAGE)
                     .execute()
@@ -39,7 +40,7 @@ public class ApiHelper {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        Log.d("ApiHelper", "getGenres() = " + genres.toString());
+
         return genres;
     }
 
