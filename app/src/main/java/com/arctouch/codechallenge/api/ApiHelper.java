@@ -4,7 +4,7 @@ import com.arctouch.codechallenge.data.Cache;
 import com.arctouch.codechallenge.model.Genre;
 import com.arctouch.codechallenge.model.GenreResponse;
 import com.arctouch.codechallenge.model.Movie;
-import com.arctouch.codechallenge.model.UpcomingMoviesResponse;
+import com.arctouch.codechallenge.model.MoviesResponse;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -46,7 +46,7 @@ public class ApiHelper {
         List<Movie> movies = Collections.emptyList();
 
         try {
-            UpcomingMoviesResponse response = api.upcomingMoviesSynchronous(TmdbApi.API_KEY, TmdbApi.DEFAULT_LANGUAGE, page)
+            MoviesResponse response = api.upcomingMoviesSynchronous(TmdbApi.API_KEY, TmdbApi.DEFAULT_LANGUAGE, page)
                     .execute()
                     .body();
             if (response != null) movies = response.results;
@@ -70,7 +70,7 @@ public class ApiHelper {
         List<Movie> movies = Collections.emptyList();
 
         try {
-            UpcomingMoviesResponse response = api.searchMoviesSynchronous(TmdbApi.API_KEY, query)
+            MoviesResponse response = api.searchMoviesSynchronous(TmdbApi.API_KEY, query)
                     .execute()
                     .body();
             if (response != null) movies = response.results;

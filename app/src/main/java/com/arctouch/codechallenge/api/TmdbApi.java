@@ -2,7 +2,7 @@ package com.arctouch.codechallenge.api;
 
 import com.arctouch.codechallenge.model.GenreResponse;
 import com.arctouch.codechallenge.model.Movie;
-import com.arctouch.codechallenge.model.UpcomingMoviesResponse;
+import com.arctouch.codechallenge.model.MoviesResponse;
 
 import io.reactivex.Observable;
 import retrofit2.Call;
@@ -30,14 +30,14 @@ interface TmdbApi {
     );
 
     @GET("movie/upcoming")
-    Observable<UpcomingMoviesResponse> upcomingMovies(
+    Observable<MoviesResponse> upcomingMovies(
             @Query("api_key") String apiKey,
             @Query("language") String language,
             @Query("page") Long page
     );
 
     @GET("movie/upcoming")
-    Call<UpcomingMoviesResponse> upcomingMoviesSynchronous(
+    Call<MoviesResponse> upcomingMoviesSynchronous(
             @Query("api_key") String apiKey,
             @Query("language") String language,
             @Query("page") Long page
@@ -51,13 +51,13 @@ interface TmdbApi {
     );
 
     @GET("search/movie")
-    Observable<UpcomingMoviesResponse> searchMovies(
+    Observable<MoviesResponse> searchMovies(
             @Query("api_key") String apiKey,
             @Query("query") String query
     );
 
     @GET("search/movie")
-    Call<UpcomingMoviesResponse> searchMoviesSynchronous(
+    Call<MoviesResponse> searchMoviesSynchronous(
             @Query("api_key") String apiKey,
             @Query("query") String query
     );
