@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="movie_overview_missing">Sem resumo</string>
+    <string name="movie_genres_missing">Sem gênero</string>
+    <string name="movie_releasedate_missing">Sem data de lançamento</string>
+    <string name="movie_title_missing">Sem título</string>
+</resources>

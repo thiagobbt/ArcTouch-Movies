@@ -31,17 +31,29 @@ public class MovieRowViewHolder extends RecyclerView.ViewHolder implements Movie
 
     @Override
     public void setTitle(String title) {
-        titleTextView.setText(title);
+        if (title.isEmpty()) {
+            titleTextView.setText(R.string.movie_title_missing);
+        } else {
+            titleTextView.setText(title);
+        }
     }
 
     @Override
     public void setGenres(String genres) {
-        genresTextView.setText(genres);
+        if (genres.isEmpty()) {
+            titleTextView.setText(R.string.movie_genres_missing);
+        } else {
+            genresTextView.setText(genres);
+        }
     }
 
     @Override
     public void setReleaseDate(String releaseDate) {
-        releaseDateTextView.setText(releaseDate);
+        if (releaseDate.isEmpty()) {
+            releaseDateTextView.setText(R.string.movie_releasedate_missing);
+        } else {
+            releaseDateTextView.setText(releaseDate);
+        }
     }
 
     @Override

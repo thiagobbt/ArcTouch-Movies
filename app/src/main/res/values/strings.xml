@@ -1,6 +1,10 @@
 <resources>
-    <string name="app_name">Code Challenge</string>
-    <string name="movie_and_genres">%s - %s</string>
+    <string name="app_name" translatable="false">Code Challenge</string>
+    <string name="movie_and_genres" translatable="false">%s - %s</string>
     <string name="movie_backdrop_image_description">Movie Backdrop Image</string>
     <string name="movie_poster_image_description">Movie Poster Image</string>
+    <string name="movie_overview_missing">No overview</string>
+    <string name="movie_genres_missing">No genre</string>
+    <string name="movie_releasedate_missing">No release date</string>
+    <string name="movie_title_missing">No title</string>
 </resources>
