@@ -10,9 +10,9 @@ import android.view.ViewGroup;
 import com.arctouch.codechallenge.R;
 import com.arctouch.codechallenge.model.Movie;
 
-public class HomeAdapter extends PagedListAdapter<Movie, MovieRowViewHolder> {
+public class MovieSearchAdapter extends PagedListAdapter<Movie, MovieRowViewHolder> {
 
-    private final HomePresenter presenter;
+    private final MovieSearchPresenter presenter;
 
     private static final DiffUtil.ItemCallback<Movie> DIFF_CALLBACK = new DiffUtil.ItemCallback<Movie>() {
         @Override
@@ -26,17 +26,17 @@ public class HomeAdapter extends PagedListAdapter<Movie, MovieRowViewHolder> {
         }
     };
 
-    HomeAdapter(HomePresenter presenter) {
+    MovieSearchAdapter(HomeView homeView, String query) {
         super(DIFF_CALLBACK);
-        this.presenter = presenter;
+        this.presenter = new MovieSearchPresenter(homeView, query, this);
     }
 
     @NonNull
     @Override
     public MovieRowViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater
-                    .from(parent.getContext())
-                    .inflate(R.layout.movie_item, parent, false);
+                .from(parent.getContext())
+                .inflate(R.layout.movie_item, parent, false);
         return new MovieRowViewHolder(view);
     }
 
