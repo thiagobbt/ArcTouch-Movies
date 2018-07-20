@@ -6,31 +6,26 @@ import android.arch.paging.PagedList;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.widget.SearchView;
 import android.text.TextUtils;
-import android.view.MenuItem;
 
-import com.arctouch.codechallenge.data.MovieDataSourceFactory;
+import com.arctouch.codechallenge.data.MovieSearchDataSourceFactory;
 import com.arctouch.codechallenge.model.Movie;
 import com.arctouch.codechallenge.movieDetails.MovieDetailsActivity;
 
-public class HomePresenter {
-    private final HomeAdapter movieAdapter;
-    private final HomeView homeView;
+class MovieSearchPresenter {
 
-    HomePresenter(HomeView homeView) {
+    MovieSearchPresenter(HomeView homeView, String query, MovieSearchAdapter movieSearchAdapter) {
         PagedList.Config config = new PagedList.Config.Builder().setPageSize(15).setPrefetchDistance(30).build();
-        this.homeView = homeView;
 
-        MovieDataSourceFactory sourceFactory = new MovieDataSourceFactory();
+        MovieSearchDataSourceFactory sourceFactory = new MovieSearchDataSourceFactory(query);
 
         LiveData<PagedList<Movie>> movies = new LivePagedListBuilder(sourceFactory, config).build();
-        movieAdapter = new HomeAdapter(this);
-        homeView.setAdapter(movieAdapter);
+
         homeView.registerLiveData(movies, items -> {
-            movieAdapter.submitList(items);
+            movieSearchAdapter.submitList(items);
             homeView.hideProgress();
         });
+
     }
 
     public void onBindRepositoryRowViewAtPosition(Movie movie, MovieRowView holder) {
@@ -53,37 +48,6 @@ public class HomePresenter {
 
             intent.putExtras(extras);
             context.startActivity(intent);
-        });
-    }
-
-
-    public void createdOptionsMenu() {
-        homeView.setOnQuerySearchListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                homeView.swapAdapter(new MovieSearchAdapter(homeView, query), false);
-
-                return true;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String newText) {
-                return false;
-            }
-        });
-
-        homeView.setOnExpandSearchListener(new MenuItem.OnActionExpandListener() {
-            @Override
-            public boolean onMenuItemActionExpand(MenuItem menuItem) {
-                return true;
-            }
-
-            @Override
-            public boolean onMenuItemActionCollapse(MenuItem menuItem) {
-                homeView.swapAdapter(movieAdapter, true);
-
-                return true;
-            }
         });
     }
 }
